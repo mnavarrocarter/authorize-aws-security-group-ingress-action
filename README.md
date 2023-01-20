@@ -11,7 +11,7 @@ It is impossible to maintain these CIDR in AWS in an efficient way because prefi
 (but you can only batch updated in hundreds) and because security group rules can only be created one
 after the other. Plus, is not very secure as other services may be running from those Azure CIDRs.
 
-[meta]: https://api.github.com/meta
+You can find more info on [this thread][thread].
 
 ## Using this Action
 
@@ -37,11 +37,7 @@ Make sure your AWS credentials have two essential permissions:
 
 Optionally, if you want to be extra safe, allow access only to the specific AWS security group you want to modify
 with the following resource-level permission:
-
 - `arn:aws:ec2:$region:$account:security-group/$security-group-id`
-
-- [authorize]: https://iam.cloudonaut.io/reference/ec2/AuthorizeSecurityGroupIngress.html
-- [revoke]: https://iam.cloudonaut.io/reference/ec2/RevokeSecurityGroupIngress.html
 
 ### Configuration Reference
 
@@ -51,3 +47,8 @@ TBW
 
 The development environment is powered by `docker` + `docker-compose`. Simply run `make` to boot up a development
 container. And then `make pr` to audit, lint, test and build the code.
+
+[thread]: https://github.com/orgs/community/discussions/26719
+[meta]: https://api.github.com/meta
+[authorize]: https://iam.cloudonaut.io/reference/ec2/AuthorizeSecurityGroupIngress.html
+[revoke]: https://iam.cloudonaut.io/reference/ec2/RevokeSecurityGroupIngress.html
