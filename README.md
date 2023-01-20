@@ -24,9 +24,18 @@ You can find more info on [this thread][thread].
     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     aws-region: 'eu-west-2' # Your AWS region
-    aws-security-group-id: 'sg-123456789', # The id of the AWS Security Group where you want the rule to be created.
+    aws-security-group-id: ${{ secrets.AWS_SSH_SECURITY_GROUP_ID }}
     protocol: 'tcp'
-    port: '22'
+    port: ${{ secrets.SSH_PORT }}
+- name: Runs a command inside the instance
+  uses: appleboy/ssh-action@v0.1.7
+  with:
+    host: ${{ secrets.SSH_HOST }}
+    username: ${{ secrets.SSH_USERNAME }}
+    password: ${{ secrets.SSH_PASSWORD }}
+    port: ${{ secrets.SSH_PORT }}
+    script: |
+      echo "Im inside the EC2 instance!"
 ```
 
 ### Requirements
