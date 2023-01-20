@@ -1,13 +1,36 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'AWS Security Group Inbound Rule Action'
+description: 'Creates a temporary inbound rule in an AWS Security Group that allows access to the IP of the machine running the Action for the specified port range'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  aws-security-group-id:
+    description: The id of the security group to add the rule to
     required: true
-    default: '1000'
+  aws-access-key-id:
+    description: Your amazon access key id
+    required: true
+  aws-secret-access-key:
+    description: Your amazon secret access key
+    required: true
+  aws-region:
+    description: The aws region to use
+    required: false
+    default: eu-west-1
+  port:
+    description: The port to allow
+    required: true
+  protocol:
+    description: The protocol to allow
+    required: false
+    default: tcp
+  ip:
+    description: 'The ip address that you want to add to the rule. If none provided it will attempt to get it from https://ipinfo.io'
+    required: false
+    default: ''
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
+  ip:
+    description: 'The ip address determined by the action or the one passed in the inputs'
+  aws-security-group-rule-id:
+    description: 'The id of the created security group rule'
 runs:
-  using: 'node16'
+  using: 'node18'
   main: 'dist/index.js'
+  pre: 'dist/index.js'

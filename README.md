@@ -1,116 +1,53 @@
-# Create a JavaScript Action
+# AWS Security Group Authorize Ingress Rule
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+This action allows you to authorize an ingress rule for an AWS Security Group temporarily using AWS. 
+The rule is deleted after the job is done. The CIDR of the rule is based on the ip of the machine running the
+job.
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+## Why this?
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.
+Because GitHub Action runners can potentially have an ip inside one of 2500+ CIDR that [Github publishes][meta].
+It is impossible to maintain these CIDR in AWS in an efficient way because prefix lists only allow 1000 elements
+(but you can only batch updated in hundreds) and because security group rules can only be created one
+after the other. Plus, is not very secure as other services may be running from those Azure CIDRs.
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+[meta]: https://api.github.com/meta
 
-## Create an action from this template
+## Using this Action
 
-Click the `Use this Template` and provide the new repo details for your action
-
-## Code in Main
-
-Install the dependencies
-
-```bash
-npm install
-```
-
-Run the tests :heavy_check_mark:
-
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-...
-```
-
-## Change action.yml
-
-The action.yml defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-const core = require('@actions/core');
-...
-
-async function run() {
-  try {
-      ...
-  }
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Package for distribution
-
-GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
-
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
-
-Run prepare
-
-```bash
-npm run prepare
-```
-
-Since the packaged index.js is run from the dist folder.
-
-```bash
-git add dist
-```
-
-## Create a release branch
-
-Users shouldn't consume the action from master since that would be latest code and actions can break compatibility between major versions.
-
-Checkin to the v1 release branch
-
-```bash
-git checkout -b v1
-git commit -a -m "v1 release"
-```
-
-```bash
-git push origin v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket:
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
+### Quick Start
 
 ```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
+- name: Authorize SSH Connections
+  uses: mnavarrocarter/authorize-aws-security-group-ingress-action@v1
+  with:
+    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    aws-region: 'eu-west-2' # Your AWS region
+    aws-security-group-id: 'sg-123456789', # The id of the AWS Security Group where you want the rule to be created.
+    protocol: 'tcp'
+    port: '22'
 ```
 
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+### Requirements
+
+Make sure your AWS credentials have two essential permissions:
+- [`ec2:AuthorizeSecurityGroupIngress`][authorize]
+- [`ec2:RevokeSecurityGroupIngress`][revoke]
+
+Optionally, if you want to be extra safe, allow access only to the specific AWS security group you want to modify
+with the following resource-level permission:
+
+- `arn:aws:ec2:$region:$account:security-group/$security-group-id`
+
+- [authorize]: https://iam.cloudonaut.io/reference/ec2/AuthorizeSecurityGroupIngress.html
+- [revoke]: https://iam.cloudonaut.io/reference/ec2/RevokeSecurityGroupIngress.html
+
+### Configuration Reference
+
+TBW
+
+## Development
+
+The development environment is powered by `docker` + `docker-compose`. Simply run `make` to boot up a development
+container. And then `make pr` to audit, lint, test and build the code.
