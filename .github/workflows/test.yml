@@ -1,4 +1,8 @@
 name: "units-test"
+
+env:
+  NODE_OPTIONS: --experimental-vm-modules
+
 on:
   pull_request:
   push:
