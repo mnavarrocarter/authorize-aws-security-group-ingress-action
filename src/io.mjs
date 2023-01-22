@@ -63,6 +63,8 @@ export function getProtocol() {
     if (!validProtocols.includes(protocol)) {
         throw new Error(`Invalid protocol "${protocol}" provided`);
     }
+
+    return protocol;
 }
 
 /**
