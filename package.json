@@ -2,7 +2,6 @@
   "name": "@mnavarrocarter/authorize-aws-security-group-ingress-action",
   "version": "1.0.0",
   "description": "JavaScript Action Template",
-  "type": "module",
   "main": "index.mjs",
   "scripts": {
     "lint": "eslint **/*.mjs",
