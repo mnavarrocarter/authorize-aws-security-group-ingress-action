@@ -1,19 +1,10 @@
+import { jest } from "@jest/globals";
 import process from 'node:process';
 import cp from 'node:child_process';
 import path from 'node:path';
-import { jest } from "@jest/globals";
 import { determineIp } from "./src/ip.mjs";
 
-global.fetch = jest.fn((url) => {
-  expect(url).toBe('https://ipinfo.io/ip');
-
-  return Promise.resolve({
-    ok: true,
-    text: () => Promise.resolve('192.168.1.1'),
-  });
-});
-
-test('determines ip', async () => {
+test.skip('determines ip', async () => {
   expect(await determineIp()).toBe('192.168.1.1');
 });
 

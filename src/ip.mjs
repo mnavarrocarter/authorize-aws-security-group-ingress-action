@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import fetch from 'node-fetch';
 
 const ipProvider = 'https://ipinfo.io/ip';
 

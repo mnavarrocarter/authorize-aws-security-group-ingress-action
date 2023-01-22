@@ -1,4 +1,4 @@
-name: "units-test"
+name: "Tests"
 
 on:
   pull_request:
@@ -8,8 +8,8 @@ on:
       - 'releases/*'
 
 jobs:
-  # unit tests
-  units:
+  unit:
+    name: Unit
     env:
       NODE_OPTIONS: --experimental-vm-modules
     runs-on: ubuntu-latest
@@ -18,8 +18,8 @@ jobs:
     - run: npm ci
     - run: npm test
 
-  # test action works
-  test:
+  functional:
+    name: Functional
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -29,7 +29,7 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: 'eu-west-1'
-        aws-security-group-id: ${{ secrets.AWS_SSH_SECURITY_GROUP_ID }}
+        aws-security-group-id: ${{ secrets.AWS_SECURITY_GROUP_ID }}
         protocol: 'tcp'
         port: ${{ secrets.SSH_PORT }}
     - name: Runs a command inside the instance

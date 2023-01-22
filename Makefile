@@ -17,7 +17,7 @@ boot:
 	$(COMPOSE_CMD) up -d --remove-orphans
 
 # Runs all the steps to be ready for PR
-pr: audit lint test dist
+pr: audit lint test prepare
 
 # Lints the code with ESLint
 audit:
@@ -31,8 +31,8 @@ lint:
 test:
 	$(COMPOSE_CMD) exec $(MAIN_SERVICE_NAME) npm run test
 
-# Runs the test coverage
-dist:
+# Prepare
+prepare:
 	$(COMPOSE_CMD) exec $(MAIN_SERVICE_NAME) npm run prepare
 
 # Opens a shell inside the main container
