@@ -32,7 +32,7 @@ You can find more info on [this thread][thread].
   with:
     host: ${{ secrets.SSH_HOST }}
     username: ${{ secrets.SSH_USERNAME }}
-    password: ${{ secrets.SSH_PASSWORD }}
+    key: ${{ secrets.SSH_KEY }}
     port: ${{ secrets.SSH_PORT }}
     script: |
       echo "Im inside the EC2 instance!"

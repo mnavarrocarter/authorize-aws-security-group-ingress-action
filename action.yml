@@ -31,6 +31,6 @@ outputs:
   aws-security-group-rule-id:
     description: 'The id of the created security group rule'
 runs:
-  using: 'node18'
+  using: 'node16'
   main: 'dist/index.js'
   pre: 'dist/index.js'

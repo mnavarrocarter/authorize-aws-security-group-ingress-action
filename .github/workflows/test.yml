@@ -19,11 +19,26 @@ jobs:
     - run: npm ci
     - run: npm test
 
-  # test action works running from the graph
+  # test action works
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: ./
+    - name: Authorize SSH Connections
+      uses: ./
       with:
-        milliseconds: 1000
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: 'eu-west-1'
+        aws-security-group-id: ${{ secrets.AWS_SSH_SECURITY_GROUP_ID }}
+        protocol: 'tcp'
+        port: ${{ secrets.SSH_PORT }}
+    - name: Runs a command inside the instance
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          echo "It works!"
