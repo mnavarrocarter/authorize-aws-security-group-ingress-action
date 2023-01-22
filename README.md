@@ -40,13 +40,32 @@ You can find more info on [this thread][thread].
 
 ### Requirements
 
-Make sure your AWS credentials have two essential permissions:
-- [`ec2:AuthorizeSecurityGroupIngress`][authorize]
-- [`ec2:RevokeSecurityGroupIngress`][revoke]
+AWS Credentials with the `EC2FullAccess` AWS Managed Policy.
 
-Optionally, if you want to be extra safe, allow access only to the specific AWS security group you want to modify
-with the following resource-level permission:
-- `arn:aws:ec2:$region:$account:security-group/$security-group-id`
+Alternatively, and for a much more secured approach, **we strongly recommend**
+creating a custom policy like the following:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupIngress"
+            ],
+            "Resource": "arn:aws:ec2:$region:$account:security-group/$security-group-id"
+        }
+    ]
+}
+```
+
+The above policy only allows authorizing and revoking AWS Security Group Inbound
+rules in the specified security group (ideally, you have a separate security
+group for automation related rules). Then you can assign that to a custom IAM
+user, special for automation too.
 
 ### Configuration Reference
 
