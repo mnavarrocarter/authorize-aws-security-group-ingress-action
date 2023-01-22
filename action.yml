@@ -1,5 +1,7 @@
 name: 'AWS Security Group Inbound Rule Action'
-description: 'Creates a temporary inbound rule in an AWS Security Group that allows access to the IP of the machine running the Action for the specified port range'
+description: 'Creates a inbound rule in an AWS Security Group and deletes it when the job finishes'
+icon: check
+color: orange
 inputs:
   aws-security-group-id:
     description: The id of the security group to add the rule to
