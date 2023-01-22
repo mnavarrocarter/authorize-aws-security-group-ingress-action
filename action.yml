@@ -1,7 +1,9 @@
 name: 'AWS Security Group Inbound Rule Action'
+author: mnavarrocarter
 description: 'Creates a inbound rule in an AWS Security Group and deletes it when the job finishes'
-icon: check
-color: orange
+branding:
+  color: 'orange'
+  icon: 'arrow-up-circle'
 inputs:
   aws-security-group-id:
     description: The id of the security group to add the rule to
