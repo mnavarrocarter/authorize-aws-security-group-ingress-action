@@ -1,3 +1,5 @@
+import 'isomorphic-fetch';
+
 const ipProvider = 'https://ipinfo.io/ip';
 
 /**
