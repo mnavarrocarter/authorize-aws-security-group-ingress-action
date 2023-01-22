@@ -1,8 +1,5 @@
 name: "units-test"
 
-env:
-  NODE_OPTIONS: --experimental-vm-modules
-
 on:
   pull_request:
   push:
@@ -13,6 +10,8 @@ on:
 jobs:
   # unit tests
   units:
+    env:
+      NODE_OPTIONS: --experimental-vm-modules
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
