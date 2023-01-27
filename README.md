@@ -19,7 +19,7 @@ You can find more info on [this thread][thread].
 
 ```yaml
 - name: Authorize SSH Connections
-  uses: mnavarrocarter/authorize-aws-security-group-ingress-action@v1
+  uses: mnavarrocarter/authorize-aws-security-group-ingress-action@v1.0.0
   with:
     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
