@@ -33,7 +33,7 @@ jobs:
         protocol: 'tcp'
         port: ${{ secrets.SSH_PORT }}
     - name: Runs a command inside the instance
-      uses: appleboy/ssh-action@v0.1.7
+      uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
