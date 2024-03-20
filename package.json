@@ -1,9 +1,8 @@
 {
   "name": "@mnavarrocarter/authorize-aws-security-group-ingress-action",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "JavaScript Action Template",
   "main": "index.mjs",
-  "type": "module",
   "scripts": {
     "lint": "eslint **/*.mjs",
     "prepare": "ncc build index.mjs -o dist --source-map --license licenses.txt",
