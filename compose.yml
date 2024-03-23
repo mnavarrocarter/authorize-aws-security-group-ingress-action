@@ -5,7 +5,7 @@ name: aws-vpc-inbound-action
 services:
 
   app:
-    image: node:16-alpine
+    image: node:20-alpine
     container_name: app.aws-vpc-inbound-action.dev
     user: ${UID:-1000}
     working_dir: /node/app
